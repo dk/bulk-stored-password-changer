@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.mozilla.org/2004/em-rdf#">
+    <RDF:Description about="urn:mozilla:install-manifest">
+	<id>dmitry@karasik.eu.org</id>
+        
+	<name>Bulk Stored Password Changer</name>
+	<version>1.1</version>
+        
+        <type>2</type><!-- extension -->
+	<description>Changes saved passwords for many sites at once. Useful in corporate environments where same password is used for many internal sites</description>
+	<creator>Dmitry Karasik</creator>
+        
+        <targetApplication>
+            <RDF:Description>
+                <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id>
+                <minVersion>1.0</minVersion>
+                <maxVersion>31.0</maxVersion>
+            </RDF:Description>
+        </targetApplication>
+
+    </RDF:Description>
+</RDF:RDF>

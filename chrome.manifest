@@ -1,0 +1,2 @@
+content		bulkpasswordchanger	chrome/content/
+overlay		chrome://browser/content/browser.xul	chrome://bulkpasswordchanger/content/browser.xul
