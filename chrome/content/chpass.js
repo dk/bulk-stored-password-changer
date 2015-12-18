@@ -20,7 +20,7 @@ if (!token.needsLogin()||token.isLoggedIn()){
 var signons = pwdmanager.getAllLogins({});
 
 if ( !confirm(
-	"This script will search through saved password and will replace old password entries with new ones. "+
+	"This script will search through saved passwords and will replace old password entries with new ones. "+
 	"\n\nNote: password prompts are unencrypted")) throw 'exit';
 
 var oldp=prompt("Enter old password", "");
