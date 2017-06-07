@@ -5,7 +5,7 @@
 	<id>dmitry@karasik.eu.org</id>
         
 	<name>Bulk Stored Password Changer</name>
-	<version>1.1</version>
+	<version>1.2</version>
         
         <type>2</type><!-- extension -->
 	<description>Changes saved passwords for many sites at once. Useful in corporate environments where same password is used for many internal sites</description>
@@ -18,6 +18,8 @@
                 <maxVersion>31.0</maxVersion>
             </RDF:Description>
         </targetApplication>
+
+        <em:multiprocessCompatible>true</em:multiprocessCompatible>
 
     </RDF:Description>
 </RDF:RDF>
