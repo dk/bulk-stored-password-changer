@@ -1,14 +1,14 @@
 browser.contextMenus.create({
-  id: "bulk-password-changer-run-key",
-  type: "normal",
-  title: "Bulk password changer 2",
-  contexts: ["all"]
+	id: "bulk-password-changer-run-key",
+	type: "normal",
+	title: "Bulk password changer",
+	contexts: ["all"]
 });
 
-browser.contextMenu.onClicked.addListener(function(info,tab) {
-  console.log(info.menuItemId);
-  alert(info.menuItemId);
-  if (info.menuItemId != "bulk-password-changer-run-key") return;
-  console.log("hello!");
-  alert("hello!");
+browser.contextMenus.onClicked.addListener(function(info,tab) {
+	if (info.menuItemId != "bulk-password-changer-run-key") return;
+	var w = browser.tabs.create({
+		url: "index.html"
+	});
 });
+
