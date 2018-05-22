@@ -1,0 +1,18 @@
+{
+	"name": "Bulk Stored Password Changer",
+	"description" : "Changes saved passwords for many sites at once. Useful in corporate environments where same password is used for many internal sites.",
+	"version" : "1.4",
+	"author" : "Dmitry Karasik",
+	"developer" : {
+		"name" : "Dmitry Karasik",
+		"url"  : "https://github.com/dk/bulk-stored-password-changer"
+	},
+	"manifest_version" : 2,
+	"permissions" : ["contextMenus", "webNavigation", "identity", "activeTab", "tabs", "clipboardWrite", "http://*/*", "https://*/*"],
+	"background" : { "scripts" : ["init.js"] },
+	"browser_action" : {
+		"browser_style":true,
+		"default_title":"Bulk Stored Password Changer",
+		"default_popup":"index.html"
+	}
+}
