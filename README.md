@@ -7,8 +7,8 @@ corporate environments where same password is used for many internal sites.
 In our corporate network we are obliged to use common authentication to access
 many of the company internal web sites. While under Windows that works seamless
 with its domain-based Kerberos tickets, Linux integration is not that smooth,
-and Firefox asks for a password each time it interacts with another interanl
-site. Worse, the password is changed each three months, so is is never stopping
+and Firefox asks for a password each time it interacts with another internal
+site. Worse, the password is changed each three months, so it is a never stopping
 process of entering password again and again.
 
 Since the password is the same anyway for all sites, I wrote this addon which
