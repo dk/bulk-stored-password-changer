@@ -1,7 +1,7 @@
 {
 	"name": "Bulk Stored Password Changer",
 	"description" : "Changes saved passwords for many sites at once. Useful in corporate environments where same password is used for many internal sites.",
-	"version" : "1.4",
+	"version" : "1.5",
 	"author" : "Dmitry Karasik",
 	"developer" : {
 		"name" : "Dmitry Karasik",

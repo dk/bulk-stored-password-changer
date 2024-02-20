@@ -1,5 +1,5 @@
 var Cc = Components.classes;
-if (typeof(Ci) == "undefined") {
+if (typeof(Cc) == "undefined") {
 	alert("cannot run in this environment, try error console");
 	throw "exit";
 }		
@@ -15,7 +15,7 @@ if (!token.needsLogin()||token.isLoggedIn()){
 	alert("cannot get login token");
 	throw "exit";
 }
-var signons = pwdmanager.getAllLogins({});
+var signons = await pwdmanager.getAllLogins(true);
 
 if ( !confirm(
 	"This script will search through saved passwords"+

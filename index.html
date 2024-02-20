@@ -4,18 +4,18 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 </head>
 <body style="color:#000;background:#FFF">
-Firefox doesn't support the old way to access passwords, and
-I have no idea now to access them using WebAPI. I tried all, and it just doesn't work.
+<h1>Bulk password changer</h1>
 <p>
-So if you really need to mass-update your password, do this:<p>
+When you need to mass-update your password, do this:<p>
 
 <ul>
 <li>Click "Generate Script". Some code will be copied to clipboard.
 <li>From menu select "Tools/Web Developer/Browser Console", (or press Ctrl+Shift+J).
+<li>Check if the input line at the window bottom is visible, if not, you need to go to 
+<a href="about:config">about:config</a> and change the <code>devtools.chrome.enabled</code> preference to <code>true</code>.
+Then close and open the window again.
 <li>Right click on the input line at the bottom and paste the code there, and press Enter. You will be asked further there for password change.
 </ul>
-
-If the input line at the bottom is not visible, you need to go to about:config and change the <code>devtools.chrome.enabled</code> preference to <code>true</code>.
 
 <i>dmitry@karasik.eu.org</i>
 
