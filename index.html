@@ -4,6 +4,33 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 </head>
 <body style="color:#000;background:#FFF">
+
+<svg width="0" height="0">
+  <filter id="rust">
+    <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.08"
+        numOctaves="2"
+        seed="7"
+        result="noise"/>
+
+    <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="1.5"
+        xChannelSelector="R"
+        yChannelSelector="G"/>
+
+    <feColorMatrix type="matrix" values="
+        0.55 0    0    0 0.10
+        0    0.30 0    0 0.05
+        0    0    0.15 0 0.03
+        0    0    0    1 0"/>
+  </filter>
+</svg>
+
+<h1><font color="#008">s/<span style="filter:url(#rust);font-size:0.8em;">🔑</span>/🔑/g
+</font><h1>
 <h1>Bulk password changer</h1>
 <p>
 When you need to mass-update your password, do this:<p>

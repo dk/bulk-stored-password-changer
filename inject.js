@@ -1,65 +1,85 @@
-var Cc = Components.classes;
-if (typeof(Cc) == "undefined") {
-	alert("cannot run in this environment, try error console");
-	throw "exit";
-}		
-
-var Ci = Components.interfaces;
-var tokendb = Cc["@mozilla.org/security/pk11tokendb;1"].createInstance(Ci.nsIPK11TokenDB);
-var token = tokendb.getInternalKeyToken();
-try {token.login(true);} catch (e) {}
-var pwdmanager;
-if (!token.needsLogin()||token.isLoggedIn()){
-	pwdmanager = Cc["@mozilla.org/login-manager;1"].getService(Ci.nsILoginManager);
-} else {
-	alert("cannot get login token");
-	throw "exit";
+function prompt2(message) {
+	const promptService = Services.prompt;
+	const input = { value: "" };
+	const accepted = promptService.promptPassword( null, "Bulk Stored Password Changer", message, input, null, {});
+	return accepted ? input.value : null;
 }
-var signons = await pwdmanager.getAllLogins(true);
 
-if ( !confirm(
-	"This script will search through saved passwords"+
-	" and will replace old password entries with new ones. "+
-	"\n\nNote: password prompts are unencrypted")) throw "exit";
+//////////////////
+(async ()=>{
+//////////////////
 
-var oldp=prompt("Enter old password", "");
-if ( oldp == null ) throw "exit";
+if (typeof Services === "undefined") {
+	alert( "Run this in Firefox privileged Browser Console, not a website console.");
+	return;
+}
 
-var i;
-var found="";
-var count=0;
-for (i=0;i<signons.length;i++) {
+const login_mgr = Services.logins;
+
+const oldp = prompt2("Enter the old password:");
+if (oldp === null) return;
+
+let logins;
+try {
+	// Firefox may show a Primary Password prompt here if needed.
+	logins = await login_mgr.getAllLogins();
+} catch (error) {
+	console.error("Could not retrieve saved logins:", error);
+	alert(
+		"Firefox could not read saved logins. " +
+		"If prompted, unlock your Primary Password and retry."
+	);
+	return;
+}
+
+const matches = logins.filter(login => login.password === oldp);
+if (!matches.length) {
+	alert("No saved login entries use that password.");
+	return;
+}
+const displayed = matches
+	.slice(0, 20)
+	.map(login => login.hostname)
+	.join("\n");
+const remainder = (matches.length > 20) ? `\n... and ${matches.length - 20} more` : "";
+if (
+	!confirm(
+		`Found ${matches.length} saved login(s):\n\n` +
+		`${displayed}${remainder}\n\n` +
+		"Replace the password for every listed entry?"
+	)
+)
+	return;
+
+const newp = prompt2( "Enter the new password, or click Cancel to stop:");
+if (newp === null) return;
+if (newp === oldp) {
+	alert("The new password is the same as the old password; no changes made.");
+	return;
+}
+
+let changed = 0;
+const failures = [];
+
+for (const login of matches) {
 	try {
-		if (signons[i].password != oldp) continue;
-		if ( count++ < 20 )
-			found += signons[i].hostname + "\n";
-	}
-	catch(e) {
-	}
-}
-if ( count > 20 ) {
-	found += "... and " + (count - 20) + "more";
-} else if (count==0) {
-	alert("No entries with this password found");
-	throw "exit";
-}
-
-if (!confirm( "Found the following URLs\n\n"+found+"\nProceed?"))
-	throw "exit";
-
-var newp=prompt("Enter new password to change them, or click Cancel to stop", "");
-if ( newp == null ) throw "exit";
-var found = "";
-var changed = 0;
-for (i=0;i<signons.length;i++) {
-	try {
-		if (signons[i].password != oldp) continue;
-		var old_entry = signons[i].clone();
-		signons[i].password = newp;
-		pwdmanager.modifyLogin(old_entry,signons[i]);
+		const new_login = login.clone();
+		new_login.password = newp;
+		await login_mgr.modifyLoginAsync(login, new_login);
 		changed++;
-	}
-	catch(e) {
+	} catch (error) {
+		failures.push(login.hostname);
+		console.error(`Failed to update ${login.hostname}:`, error);
 	}
 }
-alert("Changed " + changed + " URLs ok");
+
+alert(
+	`Changed ${changed} saved login(s).` +
+	(failures.length
+		? `\n\nFailed: ${failures.length}. Details are in Browser Console.`
+		: "")
+);
+
+//////////////////
+})();
+//////////////////
