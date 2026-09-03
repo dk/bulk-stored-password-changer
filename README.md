@@ -14,3 +14,17 @@ process of entering password again and again.
 Since the password is the same anyway for all sites, I wrote this addon which
 asks for the old password, the new password, and replaces one with another in
 one go.
+
+
+build from source
+-----------------
+
+You'll need perl, make, and zip - source OS is irrelevant as long as these work, then:
+
+```
+git clone https://github.com/dk/bulk-stored-password-changer.git
+cd bulk-stored-password-changer
+make
+```
+
+generates bulk-stored-password-changer2.xpi
